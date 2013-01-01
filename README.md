@@ -62,6 +62,12 @@ var templates = {
 };
 ```
 
+### `Tradebox.recurse(elements[, levels])`
+Easiest to call recurse within the `callback` with `this.recurse()`.
+
+* `elements` List of elements to recurse on, ie: `$('.tradebox-dirs')`
+* `levels` Amount of dir levels to recurse down. Default is `0`.
+
 ## install
 With [jam](http://jamjs.org):
 
