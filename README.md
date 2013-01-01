@@ -60,6 +60,11 @@ var templates = {
     '<% }); %>'
   ].join('')
 };
+tradebox({
+  templates: templates
+}, function(err, data, html) {
+  // do something with it here
+});
 ```
 
 ### `Tradebox.recurse(elements[, levels])`
