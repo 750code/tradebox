@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+<head>
+</head>
+<body>
+
+<div class="tradebox">Loading...</div>
+<script src="jam/require.js"></script>
+<script>
+require(['jquery', 'tradebox'], function($, tb) {
+  tb.apiKey = '7d2c4ce01927fdfb17eca3deead4fc2f';
+  tb(function(err, data, html) {
+    $('.tradebox').empty().html(html);
+    this.recurse($('.tradebox').find('.tradebox-dir'));
+  });
+});
+</script>
+
+</body>
+</html>

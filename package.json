@@ -1,0 +1,31 @@
+{
+  "name": "tradebox",
+  "version": "0.3.0",
+  "description": "A 750 Tradebox API plugin",
+  "homepage": "http://750tradebox.com",
+  "author": {
+    "name": "Kyle Robinson Young",
+    "email": "kyle@750group.com",
+    "url": "http://750group.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/750code/tradebox.git"
+  },
+  "bugs": {
+    "url": "https://github.com/750code/tradebox/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/750code/tradebox/blob/master/LICENSE-MIT"
+    }
+  ],
+  "jam": {
+    "main": "tradebox",
+    "dependencies": {
+      "jquery": "~1.8.3",
+      "lodash": "~1.0.0"
+    }
+  }
+}
