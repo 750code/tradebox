@@ -5,13 +5,23 @@
 <body>
 
 <div class="tradebox">Loading...</div>
+
+<script type="text/template" id="custom-template">
+<% _.each(contents, function(file, i) { %>
+    <a href="#"><%= file.name %></a>
+    <% if (i < (contents.length-1)) { %>&nbsp;&middot;&nbsp;<% } %>
+<% }); %>
+</script>
+
 <script src="jam/require.js"></script>
 <script>
 require(['jquery', 'tradebox'], function($, tb) {
   tb.apiKey = '7d2c4ce01927fdfb17eca3deead4fc2f';
-  tb(function(err, data, html) {
+  tb({
+    template: $('#custom-template')
+  }, function(err, data, html) {
     $('.tradebox').empty().html(html);
-    this.recurse($('.tradebox').find('.tradebox-dir'));
+    this.recurse($('.tradebox').find('a'));
   });
 });
 </script>

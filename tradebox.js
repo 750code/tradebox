@@ -32,25 +32,16 @@
 
     // get data
     self.get(self.path, function(err, data) {
-      var tpl = '';
-      if (self.template !== false) {
-        tpl = _.template(self.templates[self.template], data);
+      var tpl = false;
+      if (typeof self.template === 'object') {
+        tpl = self.template.text();
+      } else if (self.template !== false) {
+        tpl = self.templates[self.template];
+      }
+      if (tpl !== false) {
+        tpl = _.template(tpl, data);
       }
       return done.apply(self, [null, data, tpl]);
-
-      var files = data.Dropbox.contents || [];
-      for (var i = 0; i < files.length; i++) {
-        var template = self.buildTemplate(files[i], opts);
-        var li = $(template);
-        $(el).append(li);
-        if (opts.recursive > 0) {
-          var newOpts = $.extend({}, opts);
-          newOpts.recursive--;
-          newOpts.path = files[i]['path'];
-          newOpts.dirTemplate = '<li class="t750-directory-name">{{name}}{{nested}}</li>';
-          new TradeBox($('ul', li).get(0), newOpts);
-        }
-      }
     });
   }
 
@@ -77,6 +68,7 @@
     elems.each(function() {
       var el = this;
       opts.path = $(el).data('path');
+      if (opts.path === undefined) return;
       tb(opts, function(err, data, html) {
         if (data.contents.length > 0) {
           $(el).append(html);

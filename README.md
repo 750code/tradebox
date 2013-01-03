@@ -45,7 +45,8 @@ require(['jquery', 'tradebox'], function($, tb) {
 * `path` Path to get files from.
 * `apiKey` Set your api key.
 * `url` Specify a different API URL. Defaults to `'//750tradebox.com/apis/index/'`.
-* `template` String of the template you wish to use. Defaults to `'main'`.
+* `template` String of the template you wish to use. Or the element that
+  contains a template, ie: `$('#my-template')`. Defaults to `'main'`.
 * `templates` An object of templates.
 
 ##### `templates`
