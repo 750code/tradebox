@@ -25,6 +25,7 @@
     self.path = opts.path || '';
     self.template = opts.template || 'main';
     self.templates = _.defaults(self.templates, opts.templates || {});
+    self.sort = opts.sort || {key:'name',dir:'asc'};
 
     if (_.isEmpty(self.apiKey)) {
       return done(new Error('Please specify an 750 Tradebox API key'));
@@ -33,14 +34,13 @@
     // get data
     self.get(self.path, function(err, data) {
       var tpl = false;
+      data = self.sortData(data);
       if (typeof self.template === 'object') {
         tpl = self.template.text();
       } else if (self.template !== false) {
         tpl = self.templates[self.template];
       }
-      if (tpl !== false) {
-        tpl = _.template(tpl, data);
-      }
+      if (tpl !== false) tpl = _.template(tpl, data);
       return done.apply(self, [null, data, tpl]);
     });
   }
@@ -63,6 +63,7 @@
   };
 
   // recursively load dirs
+  // todo: deprecate this
   TradeBox.prototype.recurse = function(elems, levels) {
     var self = this, opts = self.opts, levels = levels || 0;
     elems.each(function() {
@@ -78,6 +79,21 @@
         }
       });
     });
+  };
+
+  // sort data
+  TradeBox.prototype.sortData = function(data) {
+    var self = this;
+    if (typeof self.sort === 'string') {
+      if (self.sort === 'asc' || self.sort === 'desc') {
+        self.sort = {key:'name',dir:self.sort};
+      } else {
+        self.sort = {key:self.sort,dir:'asc'};
+      }
+    }
+    data.contents = _.sortBy(data.contents, function(file) { return file[self.sort.key]; });
+    if (self.sort.dir === 'desc') data.contents.reverse();
+    return data;
   };
 
   // built-in templates
