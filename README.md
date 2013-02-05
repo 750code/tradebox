@@ -5,31 +5,28 @@ A [750 Tradebox](http://750tradebox.com) API plugin.
 ## example
 
 ```html
-<!-- container for it -->
 <div class="tradebox">Loading...</div>
+<script src="browserify-bundle.js"></script>
+```
 
-<!-- load up jam requirejs -->
-<script src="jam/require.js"></script>
+Then in your app:
+```js
+var $ = require('jquery-browserify');
+var tb = require('tradebox');
 
-<script>
-require(['jquery', 'tradebox'], function($, tb) {
-  
-  // set your api key
-  tb.apiKey = '7d2c4ce01927fdfb17eca3deead4fc2f';
+// set your api key
+tb.apiKey = '7d2c4ce01927fdfb17eca3deead4fc2f';
 
-  // get tradebox dirs/files
-  tb(function(err, data, html) {
+// get tradebox dirs/files
+tb(function(err, data, html) {
 
-    // clear and put the html into your container
-    $('.tradebox').empty().html(html);
+  // clear and put the html into your container
+  $('.tradebox').empty().html(html);
 
-    // recursively append the template for dirs
-    this.recurse($('.tradebox').find('.tradebox-dir'));
-
-  });
+  // recursively append the template for dirs
+  this.recurse($('.tradebox').find('.tradebox-dir'));
 
 });
-</script>
 ```
 
 ## methods
@@ -75,11 +72,13 @@ Easiest to call recurse within the `callback` with `this.recurse()`.
 * `levels` Amount of dir levels to recurse down. Default is `0`.
 
 ## install
-With [jam](http://jamjs.org):
+With [npm](http://npmjs.org):
 
 ```
-$ jam install tradebox
+$ npm install tradebox
 ```
+
+Use [browserify](http://browserify.org) to `require('tradebox')`.
 
 ## license
 Copyright (c) 2013 750 Group, LLC 
